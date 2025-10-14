@@ -1,0 +1,310 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 900;
+  font-display: swap;
+  src:
+    local('Pretendard Black'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-Black.woff2') format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-Black.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-Black.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 800;
+  font-display: swap;
+  src:
+    local('Pretendard ExtraBold'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-ExtraBold.woff2')
+      format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-ExtraBold.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-ExtraBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Pretendard Bold'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-Bold.woff2') format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-Bold.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Pretendard SemiBold'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-SemiBold.woff2')
+      format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-SemiBold.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Pretendard Medium'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-Medium.woff2') format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-Medium.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Pretendard Regular'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-Regular.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local('Pretendard Light'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-Light.woff2') format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-Light.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 200;
+  font-display: swap;
+  src:
+    local('Pretendard ExtraLight'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-ExtraLight.woff2')
+      format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-ExtraLight.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-ExtraLight.otf')
+      format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 100;
+  font-display: swap;
+  src:
+    local('Pretendard Thin'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff2/Pretendard-Thin.woff2') format('woff2'),
+    url('./assets/fonts/Pretendard-1.3.8/web/static/woff/Pretendard-Thin.woff') format('woff'),
+    url('./assets/fonts/Pretendard-1.3.8/public/static/Pretendard-Thin.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 900;
+  font-display: swap;
+  src:
+    local('Montserrat Black'),
+    url('./assets/fonts/Montserrat/static/Montserrat-Black.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 800;
+  font-display: swap;
+  src:
+    local('Montserrat ExtraBold'),
+    url('./assets/fonts/Montserrat/static/Montserrat-ExtraBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Montserrat Bold'),
+    url('./assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Montserrat SemiBold'),
+    url('./assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Montserrat Medium'),
+    url('./assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Montserrat Regular'),
+    url('./assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local('Montserrat Light'),
+    url('./assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 200;
+  font-display: swap;
+  src:
+    local('Montserrat ExtraLight'),
+    url('./assets/fonts/Montserrat/static/Montserrat-ExtraLight.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 100;
+  font-display: swap;
+  src:
+    local('Montserrat Thin'),
+    url('./assets/fonts/Montserrat/static/Montserrat-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'pass';
+  src:
+    url(data:application/font-woff2;charset=utf-8;base64,d09GMgABAAAAAAUwABAAAAAACqQAAATTAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cGh4GYACCYggGCYRlEQgKgTyBUQsmAAE2AiQDSAQgBYUEB4FEDC4bdwlAngVOmXUa8ZaNRNtFEZ8ifyIyeP7z7999ZubeRwSaD+Ym7mh3gGuxykrrV0eQ/+nv232LVdr9mSA3E8TWxBP8i8n2O8FamvKAl1q5VhXwPO56vy3DIG9rSwPJ2845ALj8L/S6/zm1oSsLV30lpSfFBfB3qPIH6Aifn1uFjJ5Q0QMER2QEkKyelFNbxLMckfj3oQABuLVi2i2Ah+OPdVie4dwBBAgDWYRCEBIcDKAAo07KRhyMk3R2g9QI76+vM7rEIYWjWcrX/Rv30RPL8d/N/cuB24iXgBBGWg6gE6t6z2HwPZO2YSfNrSuPH4WxQZvPjXzl+L//wEqvf6Dvv7n/4P7JWxkctl5xQaZQClCQ/AFs/zZKuFjrmjiB90htdF7S6FgwoGC64Nbs32+gl75l+DMkVdtVD/HsT4Rr1oLyOq3ocWVkPbQ3wcVovqQlmpt6GI95DqlkRf8ROVOFslX/F28vW5WEg0qjbcHQVuOqB53Ciww+Xw/XO5nvrOyuYbcHXxRgQIOvlQujzfv7veRB7m68bA94dkvNvl+InLHQRR0UwxR3BN2PHWNHcBzaJaQ0wt7LPXWVxaB9/gFxAEL3HSHPfnTocGHPNsJXc7BmnlQT7ghr9nmEaJReRLdaa9gSCLZLWWsLFHpKfC2at7VG3IndPX9VuVhU15z9X115UvBX22lFjz3TDPpYxyShH/MK8Kb61RXr2VUhIQO0PWGKOyiWArYdbIHbaKkVpRd/IsSkk7iUP5ZKuuDZyVF13FVftNqaOsd28VY8cDUdfbPvO2E73iee4DZMn7tH8zQfGXE6PY6T11kjr+uj4xw9tfIwKFiiCtJqGM2hc93FGr0jd8VKHA3rRSX/IW08cw5wrsDpZurJQf4jBkASAYUIA2QRpQggE2yljq0o57MaE5HQov0LPHsD4du3bj9e9/Bp7+U3Hqx9JK1pVx9u7uPX6M7cztq77oTu/dy0/M3nxW+cjaH3H15s3Pb29q63GQjgpFBn3PUZeVv/pOvcuYlrRQhJSw6hfVf9GWUZgFCdEyZ3+K1yIlLnZFRq0tTJAQQuvL+5fNj+xl/9Nfx8ku7y/y+5z91GEH4UAAKQAf87kHsbLwhA2NZMlje0RqAOga4GRzVXi6gUJOtBAsdFuAjSDKK/TO1Oo3ghAyBA0l4UAApBkUUCtREAUY6hERMAJqKIQlwEFVEWoiZuGw3WbXTIeowucW8xSF9/MURxGuIlshmIl6mb6XiFqBwUryrHXuSmpnLO00pSSllGWFBIDjtl1GmsRZMWrZhHGUvSbRyW4BbD3PJyQri5stgQFpDMPMffUks5fAOvpHgzcIVfUD4FumXwY0NKMUfDBr9WFqYMz5o1aOLrmuSXmJkbXu3zhmcVmqEtcnICdrOMncFsQjdLYeeM8PPKaRDCN2lSejRq9Lh3k58Hb9uowTU7hi5IKuD556xFix7N2vRo1/7oD/XxC3B7rmk1JjoLedvWudiqtLywTNAsaaiDrQJp15pEokSLEUdc8YlfAhKUkIQlIlFWSEziknDHxcqpUPNFZ8ueOYnw/wOzQjO0QCu0QTt0QCd0QbcynGqZUNop7m/0sfwfso5Oz99d3xFZP+BO2++bgYibWaRX5tblAw4DNmiwNkifBQA=)
+      format('woff2'),
+    url(data:application/font-woff;charset=utf-8;base64,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)
+      format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
