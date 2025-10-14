@@ -20,7 +20,7 @@ const initialState: MapState = {
     lng: 126.978,
   },
   zoom: 15,
-  isLocationAllowed: true,
+  isLocationAllowed: false,
 };
 
 // Slice 생성
