@@ -1,24 +1,36 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import mapReducer from './slices/mapSlice';
 
-// Store 생성
+// Redux Persist 설정
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+  whitelist: ['map'],
+  // blacklist: [], // 저장하지 않을 reducer 목록
+};
+
+const rootReducer = combineReducers({
+  map: mapReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: {
-    map: mapReducer,
-  },
-  // Redux DevTools는 자동으로 활성화됩니다 (production에서는 비활성화)
+  reducer: persistedReducer,
   devTools: import.meta.env.DEV,
 
-  // 추가 미들웨어가 필요한 경우
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // 필요시 직렬화 체크 비활성화할 액션 타입
-        ignoredActions: [],
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE', 'persist/REGISTER'],
       },
     }),
 });
 
-// TypeScript 타입 추론
+export const persistor = persistStore(store);
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
