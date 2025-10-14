@@ -19,7 +19,7 @@ const initialState: MapState = {
     lat: 37.5665,
     lng: 126.978,
   },
-  zoom: 15,
+  zoom: 17,
   isLocationAllowed: false,
 };
 
@@ -55,7 +55,7 @@ const mapSlice = createSlice({
         lat: 37.5665,
         lng: 126.978,
       };
-      state.zoom = 15;
+      state.zoom = 17;
       state.isLocationAllowed = true; // 위치 설정 완료
     },
   },
