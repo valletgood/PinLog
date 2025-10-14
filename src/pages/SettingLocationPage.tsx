@@ -1,6 +1,7 @@
 import Layout from '@/components/ui/Layout';
 import { useAppDispatch } from '@/redux/hooks';
 import { setCurrentLocation, resetToSeoul } from '@/redux/slices/mapSlice';
+import { handleCurrentLocation } from '@/util/mapUtil';
 
 export default function SettingLocationPage() {
   const dispatch = useAppDispatch();
@@ -9,28 +10,9 @@ export default function SettingLocationPage() {
     dispatch(resetToSeoul());
   };
 
-  const handleUseCurrentLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          // Redux store에 현재 위치 저장
-          dispatch(
-            setCurrentLocation({
-              lat: pos.coords.latitude,
-              lng: pos.coords.longitude,
-            }),
-          );
-        },
-        (error) => {
-          console.error('위치를 가져올 수 없습니다:', error);
-          // 기본 위치 (서울)로 설정
-          dispatch(resetToSeoul());
-        },
-      );
-    } else {
-      // Geolocation을 지원하지 않는 경우 기본 위치 (서울)
-      dispatch(resetToSeoul());
-    }
+  const handleUseCurrentLocation = async () => {
+    const location = await handleCurrentLocation();
+    dispatch(setCurrentLocation(location));
   };
 
   return (
