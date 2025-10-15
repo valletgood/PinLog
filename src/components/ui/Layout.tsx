@@ -1,7 +1,8 @@
 import clsx from 'clsx';
+import type { ReactNode } from 'react';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 

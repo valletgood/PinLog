@@ -14,7 +14,7 @@ L.Icon.Default.mergeOptions({
 
 export default function MapView() {
   const { center, zoom, isLocationAllowed } = useAppSelector((state) => state.map);
-  console.log(center);
+
   return (
     <MapContainer
       center={[center.lat, center.lng]}
