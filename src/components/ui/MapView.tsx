@@ -22,6 +22,7 @@ export default function MapView() {
       scrollWheelZoom={true}
       className="w-full h-full"
       style={{ height: '100%', width: '100%' }}
+      zoomControl={false}
     >
       {/* 지도 이벤트 핸들러 */}
       <MapEventHandler />
