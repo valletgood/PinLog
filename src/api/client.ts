@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 
 // API Base URL (환경변수로 관리)
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://nominatim.openstreetmap.org/';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({

@@ -10,7 +10,9 @@ export const locationApi = {
    * 위치 상세 조회
    */
   getLocation: async (id: string) => {
-    const response = await apiClient.get<ApiResponse<Location>>(`/locations/${id}`);
+    const response = await apiClient.get<ApiResponse<Location>>(
+      `/api/search?q=${encodeURIComponent(id)}&format=json&addressdetails=1&limit=1&polygon_svg=1`,
+    );
     return response.data;
   },
 };
