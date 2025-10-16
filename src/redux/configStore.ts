@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import mapReducer from './slices/mapSlice';
+import loadingReducer from './slices/loadingSlice';
 
 // Redux Persist 설정
 const persistConfig = {
@@ -9,11 +10,12 @@ const persistConfig = {
   version: 1,
   storage,
   whitelist: ['map'],
-  // blacklist: [], // 저장하지 않을 reducer 목록
+  // blacklist: ['loading'], // loading은 저장하지 않음
 };
 
 const rootReducer = combineReducers({
   map: mapReducer,
+  loading: loadingReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

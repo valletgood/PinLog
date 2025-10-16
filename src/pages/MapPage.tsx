@@ -8,6 +8,7 @@ import { handleCurrentLocation } from '@/util/mapUtil';
 import LocationList from '@/components/map/LocationList';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import SearchLocation from '@/components/map/SearchLocation';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function MapPage() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ export default function MapPage() {
 
   return (
     <Layout>
+      <LoadingSpinner />
       <SidebarProvider>
         <LocationList />
         <SidebarInset>
