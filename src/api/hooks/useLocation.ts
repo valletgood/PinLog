@@ -8,18 +8,18 @@ import { queryKeys } from '@/api/queryKeys';
  */
 
 /**
- * 위치 상세 조회
- * @param id - 조회할 위치 ID
+ * 위치 검색 조회
+ * @param query - 검색할 위치 키워드
  * @param enabled - 쿼리 활성화 여부 (기본값: true)
  */
-export const useLocation = (id: string, enabled = true) => {
+export const useLocationSearch = (query: string, enabled = true) => {
   return useQuery({
-    queryKey: queryKeys.location.detail(id),
+    queryKey: queryKeys.location.search(query),
     queryFn: async () => {
-      const response = await locationApi.getLocation(id);
-      return response.data;
+      const response = await locationApi.getLocationSearch(query);
+      return response;
     },
-    enabled: enabled && !!id, // id가 있을 때만 쿼리 실행
+    enabled: enabled && !!query, // id가 있을 때만 쿼리 실행
     staleTime: 5 * 60 * 1000, // 5분간 fresh 상태 유지
     gcTime: 10 * 60 * 1000, // 10분간 캐시 유지
   });

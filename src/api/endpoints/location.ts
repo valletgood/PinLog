@@ -1,17 +1,20 @@
 import apiClient from '@/api/client';
-import type { ApiResponse, Location } from '@/api/types';
+import type { LocationSearchResponse } from '@/api/types';
 
 /**
  * Location API
  * 위치 관련 API 엔드포인트
  */
 export const locationApi = {
-  /**
-   * 위치 상세 조회
-   */
-  getLocation: async (id: string) => {
-    const response = await apiClient.get<ApiResponse<Location>>(
-      `/api/search?q=${encodeURIComponent(id)}&format=json&addressdetails=1&limit=1&polygon_svg=1`,
+  getLocationSearch: async (query: string) => {
+    const response = await apiClient.get<LocationSearchResponse>(
+      `/v1/search/local.json?query=${encodeURIComponent(query)}&display=5`,
+      {
+        headers: {
+          'X-Naver-Client-Id': import.meta.env.VITE_NAVER_CLIENT_ID,
+          'X-Naver-Client-Secret': import.meta.env.VITE_NAVER_CLIENT_SECRET,
+        },
+      },
     );
     return response.data;
   },

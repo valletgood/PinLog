@@ -8,6 +8,6 @@ export const queryKeys = {
   location: {
     all: ['location'] as const,
     detail: (id: string) => ['location', 'detail', id] as const,
-    search: (query: string, limit: number) => ['location', 'search', query, limit] as const,
+    search: (query: string) => ['location', 'search', query] as const,
   },
 };

@@ -10,7 +10,7 @@ export { locationApi } from './endpoints/location';
 
 // React Query
 export { queryKeys } from './queryKeys';
-export { useLocation } from './hooks/useLocation';
+export { useLocationSearch } from './hooks/useLocation';
 
 // 타입 export
 export type * from './types';

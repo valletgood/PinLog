@@ -24,26 +24,24 @@ export interface PaginatedResponse<T> {
 
 // ==================== Location 관련 타입 ====================
 
-export interface Address {
-  [key: string]: string;
+export interface LocationSearchResponse {
+  display: number;
+  lastBuildDate: string;
+  start: number;
+  total: number;
+  items: Location[];
 }
 
 export interface Location {
-  place_id: number;
-  osm_type: string;
-  osm_id: number;
-  lat: string;
-  lon: string;
-  name: string;
-  display_name: string;
-  address: Address;
-  boundingbox: string[];
-  latitude: number;
-  longitude: number;
-  class: string;
-  type: string;
-  importance: number;
-  icon: string;
+  title: string;
+  link: string;
+  category: string;
+  description: string;
+  telephone: string;
+  address: string;
+  roadAddress: string;
+  mapx: string;
+  mapy: string;
 }
 
 // ==================== 에러 타입 ====================

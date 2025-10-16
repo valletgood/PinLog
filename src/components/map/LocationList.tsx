@@ -12,7 +12,6 @@ import {
 import { Home, Inbox, Calendar, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { useLocation } from '@/api';
 
 // Menu items.
 const items = [
