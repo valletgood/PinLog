@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/sidebar';
 import { Home, Inbox, Calendar, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 
 // Menu items.
 const items = [

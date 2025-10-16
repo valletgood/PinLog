@@ -29,12 +29,6 @@ function MapEventHandler() {
       if (isUserInteraction.current) {
         const newCenter = e.target.getCenter();
         console.log('중심 이동:', newCenter);
-        dispatch(
-          setCenter({
-            lat: newCenter.lat,
-            lng: newCenter.lng,
-          }),
-        );
       }
     },
 
