@@ -10,11 +10,11 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), tsconfigPaths(), svgr()],
   server: {
     proxy: {
-      '/api': {
+      '/v1': {
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/u, ''),
+        rewrite: (path) => path.replace(/^\/v1/u, ''),
         secure: false,
-        target: 'https://nominatim.openstreetmap.org',
+        target: 'https://openapi.naver.com/v1',
         ws: true,
       },
     },
