@@ -7,7 +7,11 @@ import type { Location } from '@/api';
 import { useAppDispatch } from '@/redux/hooks';
 import { setCenter } from '@/redux/slices/mapSlice';
 
-export default function SearchLocation() {
+interface SearchLocationProps {
+  onSearchLocation: (location: Location) => void;
+}
+
+export default function SearchLocation({ onSearchLocation }: SearchLocationProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [query, setQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
@@ -44,6 +48,7 @@ export default function SearchLocation() {
     const lat = Number(location.mapy) / 1e7;
     dispatch(setCenter({ lat, lng: lon }));
     setShowResults(false);
+    onSearchLocation(location);
   };
 
   useEffect(() => {
