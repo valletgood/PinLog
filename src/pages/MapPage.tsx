@@ -9,12 +9,21 @@ import LocationList from '@/components/map/LocationList';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import SearchLocation from '@/components/map/SearchLocation';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Location } from '@/api';
+import { useLocationList } from '@/api/hooks/useLocation';
+import type { SavedLocation } from '@/api';
 
 export default function MapPage() {
   const [searchedLocation, setSearchedLocation] = useState<Location | null>(null);
+  const { data } = useLocationList();
+  const [list, setList] = useState<SavedLocation[]>([]);
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (data) {
+      setList(data);
+    }
+  }, [data]);
 
   const handleClickCurrentLocation = async () => {
     const location = await handleCurrentLocation();
@@ -29,10 +38,10 @@ export default function MapPage() {
     <Layout>
       <LoadingSpinner />
       <SidebarProvider>
-        <LocationList />
+        <LocationList list={list} />
         <SidebarInset>
           <SearchLocation onSearchLocation={handleSearchedLocation} />
-          <MapView searchedLocation={searchedLocation} />
+          <MapView searchedLocation={searchedLocation} list={list} />
           <Button
             className="absolute bottom-10 right-10 z-[9999] rounded-full w-10 h-10 shadow-lg bg-white hover:bg-gray-100"
             variant="default"

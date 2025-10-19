@@ -7,45 +7,15 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarInput,
 } from '@/components/ui/sidebar';
-import { Home, Inbox, Calendar, Settings } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useLocationList } from '@/api/hooks/useLocation';
-import { useEffect, useState } from 'react';
 import type { SavedLocation } from '@/api';
-import { useAppDispatch } from '@/redux/hooks';
 import { setCenter } from '@/redux/slices/mapSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
-// Menu items.
-const items = [
-  {
-    title: '위치 1',
-    address: '서울특별시 중구 퇴계로 100',
-    icon: Home,
-  },
-  {
-    title: '위치 2',
-    address: '서울특별시 중구 퇴계로 100',
-    icon: Inbox,
-  },
-  {
-    title: '위치 3',
-    address: '서울특별시 중구 퇴계로 100',
-    icon: Calendar,
-  },
-];
-
-export default function LocationList() {
-  const { data } = useLocationList();
-  const [list, setList] = useState<SavedLocation[]>([]);
+export default function LocationList({ list }: { list: SavedLocation[] }) {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (data) {
-      setList(data);
-    }
-  }, [data]);
-
   const handleClickLocation = (item: SavedLocation) => {
     const lon = Number(item.coordinates.lng);
     const lat = Number(item.coordinates.lat);
