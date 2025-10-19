@@ -66,6 +66,8 @@ export default function MapView({ searchedLocation, list }: MapViewProps) {
     const lat = Number(location.coordinates.lat);
     dispatch(setCenter({ lat: lon, lng: lat }));
     dispatch(setZoom(17));
+    setSelectedSavedLocation(location);
+    setIsLocationDetailModalOpen(true);
   };
 
   // 검색된 위치 마커 클릭 핸들러
