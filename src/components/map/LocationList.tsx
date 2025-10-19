@@ -11,7 +11,7 @@ import {
 import { Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { SavedLocation } from '@/api';
-import { setCenter } from '@/redux/slices/mapSlice';
+import { setCenter, setZoom } from '@/redux/slices/mapSlice';
 import { useAppDispatch } from '@/redux/hooks';
 
 export default function LocationList({ list }: { list: SavedLocation[] }) {
@@ -20,6 +20,7 @@ export default function LocationList({ list }: { list: SavedLocation[] }) {
     const lon = Number(item.coordinates.lng);
     const lat = Number(item.coordinates.lat);
     dispatch(setCenter({ lat: lon, lng: lat }));
+    dispatch(setZoom(17));
   };
 
   return (

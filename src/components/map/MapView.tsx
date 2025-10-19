@@ -1,7 +1,7 @@
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import MapEventHandler from './MapEventHandler';
 import { useMemo, useState } from 'react';
 import SearchLocationDetailModal from '@/components/modal/SearchLocationDetailModal';
@@ -9,6 +9,7 @@ import LocationDetailModal from '@/components/modal/LocationDetailModal';
 import type { Location, SavedLocation } from '@/api';
 import SaveLocationModal from '@/components/modal/SaveLocationModal';
 import { useDeleteLocation } from '@/api/hooks/useLocation';
+import { setCenter, setZoom } from '@/redux/slices/mapSlice';
 
 // Leaflet 기본 마커 아이콘 설정 (Webpack 이슈 해결)
 type IconDefaultPrototype = typeof L.Icon.Default.prototype & { _getIconUrl?: () => string };
@@ -48,6 +49,7 @@ interface MapViewProps {
 
 export default function MapView({ searchedLocation, list }: MapViewProps) {
   const { center, zoom } = useAppSelector((state) => state.map);
+  const dispatch = useAppDispatch();
   const { mutate: deleteLocation } = useDeleteLocation();
 
   // 모달 상태
@@ -60,8 +62,10 @@ export default function MapView({ searchedLocation, list }: MapViewProps) {
 
   // 저장된 위치 마커 클릭 핸들러
   const handleSavedMarkerClick = (location: SavedLocation) => {
-    setSelectedSavedLocation(location);
-    setIsLocationDetailModalOpen(true);
+    const lon = Number(location.coordinates.lng);
+    const lat = Number(location.coordinates.lat);
+    dispatch(setCenter({ lat: lon, lng: lat }));
+    dispatch(setZoom(17));
   };
 
   // 검색된 위치 마커 클릭 핸들러
