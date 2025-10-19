@@ -44,6 +44,18 @@ export interface Location {
   mapy: string;
 }
 
+export interface SavedLocation {
+  id?: string;
+  name: string;
+  address: string;
+  coordinates: { lat: number; lng: number };
+  category: string;
+  review: string;
+  rating: number;
+  timestamp: string;
+  updatedAt?: string;
+}
+
 // ==================== 에러 타입 ====================
 
 export interface ApiError {

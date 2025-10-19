@@ -12,6 +12,10 @@ import {
 import { Home, Inbox, Calendar, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocationList } from '@/api/hooks/useLocation';
+import { useEffect, useState } from 'react';
+import type { SavedLocation } from '@/api';
+import { useAppDispatch } from '@/redux/hooks';
+import { setCenter } from '@/redux/slices/mapSlice';
 
 // Menu items.
 const items = [
@@ -34,25 +38,39 @@ const items = [
 
 export default function LocationList() {
   const { data } = useLocationList();
-  console.log(data);
+  const [list, setList] = useState<SavedLocation[]>([]);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (data) {
+      setList(data);
+    }
+  }, [data]);
+
+  const handleClickLocation = (item: SavedLocation) => {
+    const lon = Number(item.coordinates.lng);
+    const lat = Number(item.coordinates.lat);
+    dispatch(setCenter({ lat: lon, lng: lat }));
+  };
+
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="mt-6">
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="h-fit">
+              {list.map((item) => (
+                <SidebarMenuItem key={item.name} className="h-fit">
                   <SidebarMenuButton asChild>
                     <Button
                       variant="ghost"
                       align="left"
                       className="flex items-start gap-3 py-3 h-fit"
+                      onClick={() => handleClickLocation(item)}
                     >
-                      <item.icon className="mt-0.5 shrink-0" />
+                      {/* <item.icon className="mt-0.5 shrink-0" /> */}
                       <div className="flex flex-col gap-0.5 flex-1 min-w-0">
                         <span className="font-semibold text-sm text-sidebar-foreground truncate">
-                          {item.title}
+                          {item.name}
                         </span>
                         <span className="text-xs text-sidebar-foreground/60 line-clamp-2">
                           {item.address}

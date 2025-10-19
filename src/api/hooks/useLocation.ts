@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { locationApi } from '@/api/endpoints/location';
 import { queryKeys } from '@/api/queryKeys';
+import type { SavedLocation } from '../types';
 
 /**
  * Location API를 사용하기 위한 커스텀 훅
@@ -20,5 +21,37 @@ export const useLocationSearch = (query: string, enabled = true) => {
       return response;
     },
     enabled: enabled && !!query, // id가 있을 때만 쿼리 실행
+  });
+};
+
+/**
+ * 저장된 위치 목록 조회
+ */
+export const useLocationList = () => {
+  return useQuery({
+    queryKey: queryKeys.location.all,
+    queryFn: async () => {
+      const response = await locationApi.getLocationList();
+      return JSON.parse(response as string) as SavedLocation[];
+    },
+  });
+};
+
+/**
+ * 위치 저장
+ */
+export const useSaveLocation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: SavedLocation) => {
+      const response = await locationApi.saveLocation(data);
+      return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.location.all });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
   });
 };

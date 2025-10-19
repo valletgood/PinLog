@@ -4,8 +4,9 @@ import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '@/redux/hooks';
 import MapEventHandler from './MapEventHandler';
 import { useState, useMemo } from 'react';
-import SearchLocationDetailModal from './SearchLocationDetailModal';
+import SearchLocationDetailModal from '../modal/SearchLocationDetailModal';
 import type { Location } from '@/api';
+import SaveLocationModal from '../modal/SaveLocationModal';
 
 // Leaflet 기본 마커 아이콘 설정 (Webpack 이슈 해결)
 type IconDefaultPrototype = typeof L.Icon.Default.prototype & { _getIconUrl?: () => string };
@@ -20,26 +21,13 @@ interface MapViewProps {
   searchedLocation: Location | null;
 }
 
-export interface MarkerInfo {
-  lat: number;
-  lng: number;
-  title: string;
-  description?: string;
-}
-
 export default function MapView({ searchedLocation }: MapViewProps) {
   const { center, zoom, isLocationAllowed } = useAppSelector((state) => state.map);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState<MarkerInfo | null>(null);
+  const [isSaveLocationModalOpen, setIsSaveLocationModalOpen] = useState(false);
 
   // Marker 클릭 핸들러
   const handleMarkerClick = () => {
-    setSelectedMarker({
-      lat: center.lat,
-      lng: center.lng,
-      title: isLocationAllowed ? '현재 위치' : '서울 중심부',
-      description: '이 위치에 대한 상세 정보를 표시합니다.',
-    });
     setIsModalOpen(true);
   };
 
@@ -72,9 +60,17 @@ export default function MapView({ searchedLocation }: MapViewProps) {
       <SearchLocationDetailModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        data={selectedMarker}
-        size="xl"
-        onSave={() => {}}
+        data={searchedLocation}
+        onSave={() => {
+          setIsSaveLocationModalOpen(true);
+          setIsModalOpen(false);
+        }}
+      />
+
+      <SaveLocationModal
+        isOpen={isSaveLocationModalOpen}
+        onClose={() => setIsSaveLocationModalOpen(false)}
+        data={searchedLocation}
       />
     </>
   );

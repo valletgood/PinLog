@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
 import Modal, { ModalFooter } from '../ui/Modal';
 import { Button } from '../ui/button';
-import type { MarkerInfo } from './MapView';
+import type { Location } from '@/api';
 import { stripHtmlTags } from '@/util/textUtil';
 
 interface SearchLocationDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
-  data: MarkerInfo | null;
-  size: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  data: Location | null;
   onSave: () => void;
 }
 
@@ -16,7 +15,6 @@ export default function SearchLocationDetailModal({
   isOpen,
   onClose,
   data,
-  size,
   onSave,
 }: SearchLocationDetailModalProps) {
   // HTML 태그를 제거한 순수 텍스트 title
@@ -26,19 +24,23 @@ export default function SearchLocationDetailModal({
   }, [data?.title]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={plainTitle} size={size}>
-      <div className="space-y-4">
+    <Modal isOpen={isOpen} onClose={onClose} title="위치 정보" size="lg">
+      <div className="space-y-4 px-6 py-4">
         <div>
           <h3 className="text-sm font-medium text-gray-700 mb-1">이름</h3>
           <p className="text-gray-900">{plainTitle}</p>
         </div>
         <div>
-          <h3 className="text-sm font-medium text-gray-700 mb-1">줌 레벨</h3>
-          {/* <p className="text-gray-900">{description}</p> */}
+          <h3 className="text-sm font-medium text-gray-700 mb-1">주소</h3>
+          <p className="text-gray-900">{data?.address}</p>
+        </div>
+        <div>
+          <h3 className="text-sm font-medium text-gray-700 mb-1">카테고리</h3>
+          <p className="text-gray-900">{data?.category}</p>
         </div>
       </div>
 
-      <ModalFooter>
+      <ModalFooter className="mt-2">
         <Button variant="outline" onClick={onClose}>
           닫기
         </Button>
