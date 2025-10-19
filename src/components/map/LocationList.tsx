@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Home, Inbox, Calendar, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLocationList } from '@/api/hooks/useLocation';
 
 // Menu items.
 const items = [
@@ -32,6 +33,8 @@ const items = [
 ];
 
 export default function LocationList() {
+  const { data } = useLocationList();
+  console.log(data);
   return (
     <Sidebar>
       <SidebarContent>

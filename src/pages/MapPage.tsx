@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/ui/Layout';
-import MapView from '@/components/ui/MapView';
+import MapView from '@/components/map/MapView';
 import { setCurrentLocation } from '@/redux/slices/mapSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { Crosshair } from 'lucide-react';

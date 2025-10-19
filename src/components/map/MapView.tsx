@@ -4,10 +4,8 @@ import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '@/redux/hooks';
 import MapEventHandler from './MapEventHandler';
 import { useState, useMemo } from 'react';
-import Modal, { ModalFooter } from './Modal';
-import { Button } from './button';
+import SearchLocationDetailModal from './SearchLocationDetailModal';
 import type { Location } from '@/api';
-import { stripHtmlTags } from '@/util/textUtil';
 
 // Leaflet 기본 마커 아이콘 설정 (Webpack 이슈 해결)
 type IconDefaultPrototype = typeof L.Icon.Default.prototype & { _getIconUrl?: () => string };
@@ -22,7 +20,7 @@ interface MapViewProps {
   searchedLocation: Location | null;
 }
 
-interface MarkerInfo {
+export interface MarkerInfo {
   lat: number;
   lng: number;
   title: string;
@@ -34,12 +32,6 @@ export default function MapView({ searchedLocation }: MapViewProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState<MarkerInfo | null>(null);
 
-  // HTML 태그를 제거한 순수 텍스트 title
-  const plainTitle = useMemo(() => {
-    if (!searchedLocation?.title) return '위치 정보';
-    return stripHtmlTags(searchedLocation.title);
-  }, [searchedLocation?.title]);
-
   // Marker 클릭 핸들러
   const handleMarkerClick = () => {
     setSelectedMarker({
@@ -50,8 +42,6 @@ export default function MapView({ searchedLocation }: MapViewProps) {
     });
     setIsModalOpen(true);
   };
-
-  console.log(searchedLocation);
 
   return (
     <>
@@ -79,33 +69,13 @@ export default function MapView({ searchedLocation }: MapViewProps) {
         />
       </MapContainer>
 
-      {/* Marker 클릭 시 표시되는 Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="위치 정보" size="xl">
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-1">이름</h3>
-            <p className="text-gray-900">{plainTitle}</p>
-          </div>
-          <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-1">줌 레벨</h3>
-            <p className="text-gray-900">{zoom}</p>
-          </div>
-
-          {selectedMarker?.description && (
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-1">설명</h3>
-              <p className="text-gray-600">{selectedMarker.description}</p>
-            </div>
-          )}
-        </div>
-
-        <ModalFooter>
-          <Button variant="outline" onClick={() => setIsModalOpen(false)}>
-            닫기
-          </Button>
-          <Button onClick={() => console.log('저장:', selectedMarker)}>저장</Button>
-        </ModalFooter>
-      </Modal>
+      <SearchLocationDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={selectedMarker}
+        size="xl"
+        onSave={() => {}}
+      />
     </>
   );
 }
