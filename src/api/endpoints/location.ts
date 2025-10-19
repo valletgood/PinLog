@@ -32,4 +32,26 @@ export const locationApi = {
       return { error: 1, message: error.message };
     }
   },
+  updateLocation: async (data: SavedLocation) => {
+    try {
+      const prev = JSON.parse(localStorage.getItem('locationList') || '[]') as SavedLocation[];
+      const newList = prev.map((item) =>
+        item.id === data.id ? { ...data, updatedAt: new Date().toISOString() } : item,
+      );
+      localStorage.setItem('locationList', JSON.stringify(newList));
+      return { error: 0, message: '위치가 수정되었습니다.' };
+    } catch (error: any) {
+      return { error: 1, message: error.message };
+    }
+  },
+  deleteLocation: async (id: string) => {
+    try {
+      const prev = JSON.parse(localStorage.getItem('locationList') || '[]') as SavedLocation[];
+      const newList = prev.filter((item) => item.id !== id);
+      localStorage.setItem('locationList', JSON.stringify(newList));
+      return { error: 0, message: '위치가 삭제되었습니다.' };
+    } catch (error: any) {
+      return { error: 1, message: error.message };
+    }
+  },
 };

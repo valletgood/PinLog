@@ -55,3 +55,41 @@ export const useSaveLocation = () => {
     },
   });
 };
+
+/**
+ * 위치 수정
+ */
+export const useUpdateLocation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: SavedLocation) => {
+      const response = await locationApi.updateLocation(data);
+      return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.location.all });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+/**
+ * 위치 삭제
+ */
+export const useDeleteLocation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await locationApi.deleteLocation(id);
+      return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.location.all });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
