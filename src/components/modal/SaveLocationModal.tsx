@@ -41,8 +41,13 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
   };
 
   const handleSave = () => {
-    const finalCategory = customCategory.trim() || selectedCategory;
+    const finalCategory =
+      selectedCategory === '기타' ? `기타 > ${customCategory.trim()}` : selectedCategory;
 
+    if (selectedCategory === '기타' && !customCategory.trim()) {
+      alert('카테고리를 입력해주세요.');
+      return;
+    }
     if (!finalCategory) {
       alert('카테고리를 선택하거나 입력해주세요.');
       return;
