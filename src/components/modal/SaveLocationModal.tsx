@@ -35,6 +35,11 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
     setReview(review);
   };
 
+  const handleSelectedCategory = (category: string) => {
+    setSelectedCategory(category);
+    setCustomCategory('');
+  };
+
   const handleSave = () => {
     const finalCategory = customCategory.trim() || selectedCategory;
 
@@ -152,19 +157,14 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
                 {DEFAULT_CATEGORIES.map((category) => (
                   <Button
                     key={category}
-                    variant={selectedCategory === category ? 'active' : 'outline'}
+                    variant="outline"
                     onClick={() => {
-                      setSelectedCategory(category);
-                      setCustomCategory('');
+                      handleSelectedCategory(category);
                     }}
                     className={clsx(
                       'px-3 py-2 text-sm rounded-lg border-2 transition-all',
                       selectedCategory === category &&
-                        !customCategory &&
                         'border-blue-500 bg-blue-50 text-blue-700 font-medium',
-                      selectedCategory === category &&
-                        customCategory &&
-                        'border-gray-200 hover:border-gray-300 text-gray-700',
                     )}
                   >
                     {category}
@@ -181,9 +181,6 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
                     value={customCategory}
                     onChange={(e) => {
                       setCustomCategory(e.target.value);
-                      if (e.target.value.trim()) {
-                        setSelectedCategory('');
-                      }
                     }}
                     placeholder="예: 데이트 장소, 출장지 등"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
