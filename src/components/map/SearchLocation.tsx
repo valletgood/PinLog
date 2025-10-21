@@ -49,6 +49,7 @@ export default function SearchLocation({ onSearchLocation }: SearchLocationProps
     dispatch(setCenter({ lat, lng: lon }));
     setShowResults(false);
     onSearchLocation(location);
+    setQuery('');
   };
 
   useEffect(() => {
