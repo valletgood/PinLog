@@ -118,7 +118,7 @@ export default function LocationDetailModal({
   };
 
   const handleDelete = () => {
-    if (showDeleteConfirm && onDelete && data.id) {
+    if (showDeleteConfirm && onDelete && data?.id) {
       onDelete(data.id);
       onClose();
     } else {
