@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Modal, { ModalBody, ModalFooter } from '../ui/Modal';
-import { Button } from '../ui/button';
+import Modal, { ModalBody, ModalFooter } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/button';
 import type { SavedLocation } from '@/api';
 import {
   MapPin,
@@ -13,12 +13,15 @@ import {
   Calendar,
   Save,
   X,
+  Camera,
+  Image as ImageIcon,
 } from 'lucide-react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { DEFAULT_CATEGORIES } from '@/define/define';
 import { useUpdateLocation } from '@/api/hooks/useLocation';
 import clsx from 'clsx';
+import FileInput from '@/components/ui/FileInput';
 
 dayjs.locale('ko');
 
@@ -45,6 +48,7 @@ export default function LocationDetailModal({
   const [category, setCategory] = useState('');
   const [customCategory, setCustomCategory] = useState('');
   const [review, setReview] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
 
   const { mutate: updateLocation } = useUpdateLocation();
 
@@ -57,6 +61,7 @@ export default function LocationDetailModal({
       setCategory(category || '');
       setCustomCategory(customCategory || '');
       setReview(data.review || '');
+      setPhotos(data.photos || []);
       setIsEditMode(false);
       setShowDeleteConfirm(false);
     }
@@ -90,6 +95,7 @@ export default function LocationDetailModal({
       rating,
       category: finalCategory,
       review: review.trim(),
+      photos: photos.length > 0 ? photos : undefined,
       updatedAt: new Date().toISOString(),
     };
 
@@ -113,6 +119,7 @@ export default function LocationDetailModal({
       setCategory(data.category || '');
       setCustomCategory('');
       setReview(data.review || '');
+      setPhotos(data.photos || []);
     }
     setIsEditMode(false);
   };
@@ -302,6 +309,59 @@ export default function LocationDetailModal({
                 <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
                   {data.review || '리뷰가 없습니다.'}
                 </p>
+              </div>
+            )}
+          </div>
+
+          {/* 사진 */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
+              <Camera className="w-4 h-4 text-pink-600" />
+              <span>첨부된 사진</span>
+            </div>
+
+            {isEditMode ? (
+              <FileInput setPhotos={setPhotos} photos={photos} />
+            ) : (
+              <div>
+                {data.photos && data.photos.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    {data.photos.map((photo, index) => (
+                      <div key={index} className="relative group">
+                        <img
+                          src={photo}
+                          alt={`첨부된 사진 ${index + 1}`}
+                          className="w-full h-24 object-cover rounded-lg border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
+                          onClick={() => {
+                            // 사진을 새 창에서 크게 보기
+                            const newWindow = window.open();
+                            if (newWindow) {
+                              newWindow.document.write(`
+                                <html>
+                                  <head>
+                                    <title>사진 ${index + 1}</title>
+                                    <style>
+                                      body { margin: 0; padding: 20px; background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+                                      img { max-width: 100%; max-height: 100vh; object-fit: contain; }
+                                    </style>
+                                  </head>
+                                  <body>
+                                    <img src="${photo}" alt="첨부된 사진 ${index + 1}" />
+                                  </body>
+                                </html>
+                              `);
+                            }
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-8 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                    <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                    <p className="text-gray-500 text-sm">첨부된 사진이 없습니다.</p>
+                  </div>
+                )}
               </div>
             )}
           </div>

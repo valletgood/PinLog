@@ -52,6 +52,7 @@ export interface SavedLocation {
   category: string;
   review: string;
   rating: number;
+  photos?: string[]; // Base64 인코딩된 이미지 데이터 배열
   timestamp: string;
   updatedAt?: string;
 }

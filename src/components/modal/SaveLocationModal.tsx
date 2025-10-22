@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
-import Modal, { ModalBody, ModalFooter } from '../ui/Modal';
-import { Button } from '../ui/button';
+import Modal, { ModalBody, ModalFooter } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/button';
 import type { Location, SavedLocation } from '@/api';
 import { stripHtmlTags } from '@/util/textUtil';
 import { MapPin, Star, Tag, MessageSquare, Navigation } from 'lucide-react';
 import { DEFAULT_CATEGORIES } from '@/define/define';
 import clsx from 'clsx';
 import { useSaveLocation } from '@/api/hooks/useLocation';
+import FileInput from '@/components/ui/FileInput';
 
 interface SaveLocationModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
   const [selectedCategory, setSelectedCategory] = useState('');
   const [customCategory, setCustomCategory] = useState('');
   const [rating, setRating] = useState(0);
+  const [photos, setPhotos] = useState<string[]>([]);
 
   const { mutate: saveLocation } = useSaveLocation();
 
@@ -60,7 +62,8 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
       coordinates: { lat: Number(data?.mapx) / 1e7, lng: Number(data?.mapy) / 1e7 },
       category: finalCategory,
       review: review.trim(),
-      rating: rating,
+      rating,
+      photos: photos.length > 0 ? photos : undefined,
       timestamp: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -83,6 +86,7 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
     setSelectedCategory('');
     setCustomCategory('');
     setRating(0);
+    setPhotos([]);
     onClose();
   };
 
@@ -210,6 +214,9 @@ export default function SaveLocationModal({ isOpen, onClose, data }: SaveLocatio
             />
             <p className="text-xs text-gray-500">{review.length} / 500자</p>
           </div>
+
+          {/* 사진 첨부 */}
+          <FileInput setPhotos={setPhotos} photos={photos} />
         </div>
       </ModalBody>
 
